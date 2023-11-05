@@ -1658,11 +1658,39 @@ function addEvents() {
 
   // touch drag pieces
   if (isTouchDevice() === true) {
-    boardEl.on('touchstart', '.' + CSS.square, touchstartSquare);
-    containerEl.on('touchstart', '.' + CSS.sparePieces + ' .' + CSS.piece,
-      touchstartSparePiece);
-    $(window).on('touchmove', touchmoveWindow);
-    $(window).on('touchend', touchendWindow);
+    boardEl.on('touchstart', '.' + CSS.square, function(e) {
+      e.preventDefault();
+      var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+      e.pageX = touch.pageX;
+      e.pageY = touch.pageY;
+      mouseenterSquare.call(this, e);
+      mousedownSquare.call(this, e);
+    });
+
+    containerEl.on('touchstart', '.' + CSS.sparePieces + ' .' + CSS.piece, function(e) {
+      e.preventDefault();
+      var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+      e.pageX = touch.pageX;
+      e.pageY = touch.pageY;
+      mouseenterSquare.call(this, e);
+      mousedownSparePiece.call(this, e);
+    });
+
+    $(window).on('touchmove', function(e) {
+      e.preventDefault();
+      var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+      e.pageX = touch.pageX;
+      e.pageY = touch.pageY;
+      mousemoveWindow.call(this, e);
+    });
+
+    $(window).on('touchend', function(e) {
+      e.preventDefault();
+      var touch = e.originalEvent.changedTouches[0];
+      e.pageX = touch.pageX;
+      e.pageY = touch.pageY;
+      mouseupWindow.call(this, e);
+    });
   }
 }
 
