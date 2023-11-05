@@ -1,21 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>Chess Game</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="lib/chessboardjs/css/chessboard-0.3.0.css">
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <div id="board" class="board"></div>
-    
+    <div class="game-container"> <!-- Wrapper div for the entire game including health bars and board -->
+        <div class="sidebar"> <!-- Wrapper div for the ninja and health bars -->
+            <div class="ninja"></div>
+            <div class="health-bars">
+                <div class="health-bar"></div>
+                <div class="health-bar"></div>
+                <div class="health-bar"></div>
+                <div class="health-bar"></div>
+            </div>
+            <div class="level-display">LVL <span id="levelNumber">1</span></div>
+        </div>
+
+        <div id="board" class="board"></div>
+        
+    </div>
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script src="lib/jquery/jquery-3.2.1.min.js"></script>
     <script src="lib/chessboardjs/js/chess.js"></script>
     <script src="lib/chessboardjs/js/chessboard-0.3.0.js"></script>
     <script src="./script.js"></script>
 </body>
-
 </html>

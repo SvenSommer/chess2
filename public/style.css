@@ -1,18 +1,3 @@
-.board {
-    width: 600px;
-    margin: auto
-}
-
-.info {
-    width: 400px;
-    margin: auto;
-}
-
-.move-history {
-    max-height: 100px;
-    overflow-y: scroll;
-}
-
 /*!
  * chessboard.js $version$
  *
@@ -23,6 +8,11 @@
  * Date: $date$
  */
 
+ body {
+  background-color: black; /* Sets the background of the entire page to black */
+}
+
+
 /* clearfix */
 .clearfix-7da63 {
   clear: both;
@@ -30,7 +20,7 @@
 
 /* board */
 .board-b72b1 {
-  border: 1px solid #404040;
+  border:3px solid #45aa16;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
 }
@@ -42,23 +32,23 @@
 
   /* disable any native browser highlighting */
   -webkit-touch-callout: none;
-    -webkit-user-select: none;
-     -khtml-user-select: none;
-       -moz-user-select: none;
-        -ms-user-select: none;
-            user-select: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 /* white square */
 .white-1e1d7 {
-  background-color: #f0d9b5;
-  color: #b58863;
+  background-color: #c3e1c1;
+  color: rgb(21, 143, 71);
 }
 
 /* black square */
 .black-3c85d {
-  background-color: #b58863;
-  color: #f0d9b5;
+  background-color: rgb(21, 143, 71);
+  color: #c3e1c1;
 }
 
 /* highlighted square */
@@ -91,6 +81,93 @@
   left: 2px;
 }
 
+.board {
+  width: 600px;
+  margin: auto;
+}
+
+.info {
+  width: 400px;
+  margin: auto;
+}
+
+.move-history {
+  max-height: 100px;
+  overflow-y: scroll;
+}
+
+/* Health Bar styles */
+.health-bar-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.health-bar {
+  width: 25px;
+  height: 30px;
+  background-color: rgb(21, 143, 71);
+  margin-right: 5px;
+  transform: skewX(-25deg);
+}
+
+.game-container {
+  display: flex; /* Aligns the sidebar and board side by side */
+  justify-content: center; /* Centers them horizontally on the page */
+  align-items: start; /* Aligns items to the top */
+  color: white; /* Sets the text color to white for better contrast against the black background */
+}
+
+.sidebar {
+  display: flex; /* Aligns the ninja and health bars side by side */
+  align-items: center; /* Centers them vertically */
+  margin-right: 20px; /* Adds some space between the sidebar and the board */
+}
+
+.health-bar-container {
+  display: flex;
+  flex-direction: column; /* This stacks the ninja and health bars vertically */
+  align-items: center; /* This centers them horizontally within the container */
+  margin-right: 20px; /* Adds some space between the health bars and the board */
+}
+
+.health-bars {
+  display: flex; /* Aligns the health bars side by side */
+}
+
+.health-bar-inactive {
+  background-color: rgba(21, 143, 71, 0.3); /* Milder green for inactive health */
+}
+
+.ninja {
+  width: 50px; /* Adjust as needed */
+  height: 50px; /* Adjust as needed */
+  background-image: url('/img/avatars/green.png'); /* Update with the correct path */
+  background-size: cover; /* This will cover the div with the image */
+  margin-right: 10px; /* Spacing between the ninja and the health bars */
+}
+
+
+/* Other styles... */
+
+.level-display {
+  font-size: large;
+  color:  rgb(21, 143, 71); /* Text color */
+  text-align: center; /* Center the text */
+  margin-top: 10px; /* Space above the level display */
+  font-size: 40px; /
+}
+
+/* Ensure .sidebar has the right styles to handle the new .level-display */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+
+/* Victory message animation */
 @keyframes fadeInOut {
   0%, 100% { opacity: 0; }
   50% { opacity: 1; }
@@ -102,13 +179,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 3rem;
-  color: #FFD700; /* Gold color */
-  background-color: white; /* White background */
+  color: #FFD700;
+  background-color: white;
   padding: 1rem;
   border-radius: 10px;
   text-align: center;
   z-index: 1000;
   opacity: 0;
   animation: fadeInOut 3s ease-in-out forwards;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Optional: Adds a shadow for better readability */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
