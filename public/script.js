@@ -37,17 +37,42 @@ var makeBestMove = function () {
     board.position(game.fen());
     // renderMoveHistory(game.history());
     if (game.game_over()) {
-        alert('Schachmatt!');
+        checkmate('Schachmatt!');
     }
 };
 
 var getBestMove = function (game) {
     if (game.game_over()) {
-        alert('Schachmatt!');
+        checkmate('Schachmatt!');
     }
     var bestMove = calculateBestMove(game);
     return bestMove;
 };
+
+var checkmate = function (message) {
+    // Trigger confetti
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        disableForReducedMotion: true
+    });
+
+    // Create the victory message element
+    var victoryMessage = document.createElement('div');
+    victoryMessage.className = 'victory-message';
+    victoryMessage.textContent = message;
+
+    // Append the victory message to the body
+    document.body.appendChild(victoryMessage);
+
+    // Remove the victory message after the animation ends
+    setTimeout(function () {
+        document.body.removeChild(victoryMessage);
+    }, 3000); // This should match the duration of the animation
+
+}
+
 
 
 
@@ -72,6 +97,10 @@ var onSnapEnd = function () {
 };
 
 var onMouseoverSquare = function (square, piece) {
+    if (game.game_over()) {
+        checkmate('Schachmatt!');
+        return
+    }
     var moves = game.moves({
         square: square,
         verbose: true

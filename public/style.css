@@ -90,3 +90,25 @@
   top: 2px;
   left: 2px;
 }
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.victory-message {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: #FFD700; /* Gold color */
+  background-color: white; /* White background */
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeInOut 3s ease-in-out forwards;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Optional: Adds a shadow for better readability */
+}
