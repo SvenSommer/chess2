@@ -94,22 +94,46 @@ var onSnapEnd = function () {
     board.position(game.fen());
 };
 
-var onMouseoverSquare = function (square, piece) {
-    var moves = game.moves({
-        square: square,
-        verbose: true
-    });
+function isMoveDangerous(move, game) {
+    // Create a new game instance to simulate the move
+    var simulation = new Chess(game.fen());
+    simulation.move({ from: move.from, to: move.to, promotion: 'q' }); // 'q' for queen is a standard promotion choice
+    
+    // Generate opponent's moves after the move simulation
+    var opponentMoves = simulation.moves({ verbose: true });
 
-    if (moves.length === 0) return;
+    // Check if the moved piece can be captured
+    for (var i = 0; i < opponentMoves.length; i++) {
+        if (opponentMoves[i].captured && opponentMoves[i].to === move.to) {
+            return true; // The piece at the 'to' square can be captured
+        }
+    }
+    return false; // The piece is not in immediate danger
+}
+
+// Update the onMouseoverSquare function to use isMoveDangerous
+var onMouseoverSquare = function (square, piece) {
+    // Use the verbose moves for checking danger
+    var moves = game.moves({ square: square, verbose: true });
+
+    // Color the current square
     colorSquare(square, 'rgba(173, 216, 230, 0.7)');
 
+    // Iterate over moves and color them based on type
     for (var i = 0; i < moves.length; i++) {
-        if (moves[i].flags.includes("c"))
+        if (moves[i].flags.includes("c")) {
+            // If the move is a capture, color the square red
             colorSquare(moves[i].to, 'rgba(224, 77, 77, 0.9)');
-        else
+        } else if (isMoveDangerous(moves[i], game)) {
+            // If the move is dangerous, color the square yellow
+            colorSquare(moves[i].to, 'rgba(255, 255, 0, 0.7)');
+        } else {
+            // Otherwise, color it blue
             colorSquare(moves[i].to, 'rgba(173, 216, 230, 0.7)');
+        }
     }
 };
+
 
 var onMouseoutSquare = function (square, piece) {
     removeHighlightedSquares();
